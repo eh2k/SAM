@@ -84,6 +84,12 @@ void SetMouthThroat(unsigned char mouth, unsigned char throat);
 // 173=amplitude2
 // 174=amplitude3
 
+void (*SAM_write_buffer)(int pos, char value) = NULL;
+
+void write_buffer(int pos, char value)
+{
+    buffer[pos] = value;
+}
 
 void Init()
 {
@@ -92,7 +98,12 @@ void Init()
 
     bufferpos = 0;
     // TODO, check for free the memory, 10 seconds of output should be more than enough
-    buffer = malloc(22050*10);
+
+    if(SAM_write_buffer == NULL)
+    {
+        buffer = (char*)malloc(22050*10);
+        SAM_write_buffer = write_buffer;
+    }
 
     /*
     freq2data = &mem[45136];

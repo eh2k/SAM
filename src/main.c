@@ -5,7 +5,6 @@
 
 #include "reciter.h"
 #include "sam.h"
-#include "debug.h"
 
 #ifdef USESDL
 #include <SDL.h>

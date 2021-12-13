@@ -49,8 +49,7 @@ unsigned char trans(unsigned char mem39212, unsigned char mem39213);
 
 // contains the final soundbuffer
 extern int bufferpos;
-extern char *buffer;
-
+extern void (*SAM_write_buffer)(int pos, char value);
 
 
 //timetable for more accurate c64 simulation
@@ -71,7 +70,7 @@ void Output8BitAry(int index, unsigned char ary[5])
     oldtimetableindex = index;
     // write a little bit in advance
     for(k=0; k<5; k++)
-        buffer[bufferpos/50 + k] = ary[k];
+        SAM_write_buffer(bufferpos/50 + k, ary[k]);
 }
 void Output8Bit(int index, unsigned char A)
 {
@@ -917,13 +916,13 @@ pos48159:
                 X = 26;
                 // mem[54296] = X;
                 bufferpos += 150;
-                buffer[bufferpos/50] = (X & 15)*16;
+                SAM_write_buffer(bufferpos/50, (X & 15)*16);
             } else
             {
                 //mem[54296] = 6;
                 X=6;
                 bufferpos += 150;
-                buffer[bufferpos/50] = (X & 15)*16;
+                SAM_write_buffer(bufferpos/50, (X & 15)*16);
             }
 
             for(X = wait2; X>0; X--); //wait

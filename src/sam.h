@@ -10,10 +10,10 @@ void EnableSingmode();
 void EnableDebug();
 
 int SAMMain();
+extern void (*SAM_write_buffer)(int pos, char value); //Overwrite for own buffer
 
 char* GetBuffer();
 int GetBufferLength();
-
 
 //char input[]={"/HAALAOAO MAYN NAAMAEAE IHSTT SAEBAASTTIHAAN \x9b\x9b\0"};
 //unsigned char input[]={"/HAALAOAO \x9b\0"};
